@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>搜索质量</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load staticfiles %}
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="{{STATIC_URL}}css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+      div.img {  
+        float: left;
+        padding-top: 5px;  
+        padding-right: 2px;  
+        padding-bottom: 5px;  
+        padding-left: 5px;  
+      }  
+      select {width: 120px;}
+    </style>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">搜索质量</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li class="dropdown">
+                <a href="#kpi" class="dropdown-toggle" data-toggle="dropdown">KPI指标<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">点击率分析</a></li>
+                    <li><a href="#">热搜词分析</a></li>
+                    <li><a href="#">无结果词分析</a></li>
+                    <li><a href="#">无点击词分析</a></li>
+                  </ul>
+                </li>
+                <li><a href="#about">搜索运营系统</a></li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">反作弊<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">作弊词语</a></li>
+                  <li><a href="#">作弊商户</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+          <form class="navbar-form pull-right">
+              <input class="span2" type="text" maxlength="20" style="width:250px;" 
+                placeholder="动态">
+              <button type="submit" class="btn">搜索</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        {% block content %} {% endblock %}
+    </div>
+
+    <div class="footer">
+          <hr>
+          <p>&copy; Company 2013</p>
+    </div>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+  </body>
+</html>

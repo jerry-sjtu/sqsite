@@ -1,0 +1,40 @@
+
+{% extends 'homepage/generic_page.html' %}
+{% load staticfiles %}
+{% block content %}
+    {% include "kpi/filter.html" %}
+  <div class="row">
+      <div class="span12">
+        <h2>数据分析结果</h2>
+        <table class="table table-hover table-striped">
+          <tr>
+            <th>搜索次数</th>
+            <th>点击率</th>
+            <th>平均点击次数</th>
+            <th>首次点击位置</th>
+            <th>首页平均点击位置</th>
+            <th>首页点击率</th>
+            <th>热搜词搜索次数</th>
+            <th>热搜词点击率</th>
+            <th>无结果搜索次数</th>
+          </tr>
+        {% for item in overall_result %}
+          <tr>
+            <td>{{ item.searchnum }} </td>
+            <td>{{ item.clickrate }} </td>
+            <td>{{ item.avgclicknum }} </td>
+            <td>{{ item.firstclickpos }} </td>
+            <td>{{ item.avgpageoneclicknum }} </td>
+            <td>{{ item.pageoneclickrate }} </td>
+            <td>{{ item.hotsearchnum }} </td>
+            <td>{{ item.hotclickrate }} </td>
+            <td>{{ item.noresultnum }} </td>
+          </tr>
+        {% endfor %}
+        </table>
+      </div>
+      <div class="span8">
+      <p>各个指标的解释</p>
+    </div>
+  </div>
+{% endblock %}
