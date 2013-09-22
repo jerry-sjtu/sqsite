@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from kpi.models import CommonQuey
-from kpi.models import QueryCategory
-from kpi.models import QueryProcess
+from kpi.models import CommonQuey, QueryCategory, QueryProcess
+from kpi.forms import OverallFilterForm
 
 class OverallTest(TestCase):
     def test_basic_addition(self):
@@ -61,4 +60,15 @@ class QueryProcessTest(TestCase):
         q3 = QueryProcess(5)
         self.assertEqual('纠错+重定向', q3.to_category_str())
         
+
+class OverallFilterFormTest(TestCase):
+    def test_form(self):
+        form = OverallFilterForm()
+        print form.cleaned_data['business']
+        print type(form.cleaned_data['business'])
+        
+
+
+
+
         

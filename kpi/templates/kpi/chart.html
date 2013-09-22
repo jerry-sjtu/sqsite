@@ -1,13 +1,8 @@
 {% extends 'homepage/generic_page.html' %}
 {% load staticfiles %}
 {% block content %}
-    <div class="row">
-    <div class="span8">
-      <h2>热门食谱推荐</h2>
-      <p>在上海，各式各样的餐厅多如牛毛，那么哪些餐厅人气最旺？去这些餐厅必点的招牌菜又是哪些呢？且听小编我一一道来，不吃肯定会后悔的人气招牌菜，馋嘴猫们耳朵竖直了！</p>
-    </div>
-    <div class="span4">
-
-    </div>
-  </div>
+{% include "kpi/filter.html" %}
+<div class="row">
+    <div id="search_chart" class="span12" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</div>
 {% endblock %}

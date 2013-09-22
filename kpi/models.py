@@ -61,6 +61,21 @@ class SeOverallanalysis(models.Model):
     def get_business(self):
         pass
 
+class FormatHelper(object):
+    @staticmethod
+    def format_float(val):
+        return '{0:.3f}'.format(val)
+
+class MathHelper(object):
+    @staticmethod
+    def divide(num1, num2):
+        if num2 == 0:
+            return 0
+        else:
+            return '{0:.3f}'.format(float(num1) / num2)
+        
+        
+
 class CommonQuey(models.Model):
     def __init__(self):
         self.init_city()

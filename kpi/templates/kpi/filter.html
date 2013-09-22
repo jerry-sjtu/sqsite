@@ -1,9 +1,9 @@
 <div style="border:5px solid #F0F0F0; background-color:#E0E0E0;">
+  {% if form.format == table %}
     <form action="" method="post"> {% csrf_token %}
-    {{ form.non_field_errors }}
-    {{ form.business.errors }}
-    {{ form.fromdate.errors }}
-    {{ form.todate.errors }}
+  {% elif form.format == chart %}
+    <form action="chart" method="post"> {% csrf_token %}
+  {% endif %}
     <table>
         <tr>
             <td><label for="business">业务</label></td>
@@ -43,7 +43,7 @@
             <td>{{form.query_category}}</td>
             <td><label for="business">Query处理</label></td>
             <td>{{form.query_process}}</td>
-            <td></td><td><button type="submit" class="btn">查询</button></td>
+            <td></td> <td><button type="submit" class="btn">查询</button></td>
         </tr>
     </table>
     </form>
@@ -51,6 +51,39 @@
 <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script>
 <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
+  function load_algo() {
+    var business = $("#id_business").val();
+    var fromdate = $("#id_fromdate").val();
+    var todate = $("#id_todate").val();
+    var url = "algo_list/" + business + "/" + fromdate + "/" + todate;
+    $.get(url, function(data) {
+      var options = "";
+      for (var i=0; i < data.length; i++) {
+        options += "<option value=" +  data[i][0] + ">" + data[i][1] + "</option>";
+      }
+      $("#id_algo_list").html(options);
+    });
+  }
+
+  function load_query_category() {
+    var business = $("#id_business").val();
+    var fromdate = $("#id_fromdate").val();
+    var todate = $("#id_todate").val();
+    var url = "query_category/" + business + "/" + fromdate + "/" + todate;
+    $.get(url, function(data) {
+      var options = "";
+      for (var i=0; i < data.length; i++) {
+        options += "<option value=" +  data[i][0] + ">" + data[i][1] + "</option>";
+      }
+      $("#id_query_category").html(options);
+    });
+  }
+
+  function load_option() {
+    load_algo();
+    load_query_category();
+  }
+
   $(function() {
     $('#datetimepicker1').datetimepicker({
       language: 'pt-BR',
@@ -62,5 +95,9 @@
     });
     $('#id_fromdate').val('{{form.init_fromdate}}');
     $('#id_todate').val('{{form.init_todate}}');
+    $('#id_business').on("change", load_option);
+    $('#id_fromdate').on("change", load_option);
+    $('#id_todate').on("change", load_option);
   });
+
 </script>

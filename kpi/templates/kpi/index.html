@@ -5,36 +5,88 @@
     {% include "kpi/filter.html" %}
   <div class="row">
       <div class="span12">
-        <h2>数据分析结果</h2>
+        <h3>数据分析结果[按日期]</h3>
         <table class="table table-hover table-striped">
           <tr>
+            <th>日期</th>
             <th>搜索次数</th>
             <th>点击率</th>
+            <th>点击次数</th>
             <th>平均点击次数</th>
-            <th>首次点击位置</th>
+            <th>平均点击位置</th>
+            <th>平均首次点击位置</th>
+            <th>首页平均点击次数</th>
             <th>首页平均点击位置</th>
-            <th>首页点击率</th>
             <th>热搜词搜索次数</th>
             <th>热搜词点击率</th>
-            <th>无结果搜索次数</th>
+            <th>平均翻页次数</th>
+            <th>无结果率</th>
           </tr>
         {% for item in overall_result %}
           <tr>
+            <td>{{ item.statdate }} </td>
             <td>{{ item.searchnum }} </td>
             <td>{{ item.clickrate }} </td>
+            <td>{{ item.clicknum }} </td>
             <td>{{ item.avgclicknum }} </td>
-            <td>{{ item.firstclickpos }} </td>
+            <td>{{ item.avgclickpos }} </td>
+            <td>{{ item.avgfirstclickpos }} </td>
             <td>{{ item.avgpageoneclicknum }} </td>
-            <td>{{ item.pageoneclickrate }} </td>
-            <td>{{ item.hotsearchnum }} </td>
+            <td>{{ item.avgpageoneclickpos }} </td>
+            <td>{{ item.hotkeywordsearchnum }} </td>
             <td>{{ item.hotclickrate }} </td>
-            <td>{{ item.noresultnum }} </td>
+            <td>{{ item.avgdropdown }} </td>
+            <td>{{ item.noresultrate }} </td>
           </tr>
         {% endfor %}
         </table>
       </div>
+
+      <div class="span12">
+        <h3>数据分析结果[汇总]</h3>
+        <table class="table table-hover table-striped">
+          <tr>
+            <th>日期</th>
+            <th>搜索次数</th>
+            <th>点击率</th>
+            <th>点击次数</th>
+            <th>平均点击次数</th>
+            <th>平均点击位置</th>
+            <th>平均首次点击位置</th>
+            <th>首页平均点击次数</th>
+            <th>首页平均点击位置</th>
+            <th>热搜词搜索次数</th>
+            <th>热搜词点击率</th>
+            <th>平均翻页次数</th>
+            <th>无结果率</th>
+          </tr>
+        {% for item in total_result %}
+          <tr>
+            <td>{{ item.from_date }}-{{ item.to_date }} </td>
+            <td>{{ item.searchnum }} </td>
+            <td>{{ item.clickrate }} </td>
+            <td>{{ item.clicknum }} </td>
+            <td>{{ item.avgclicknum }} </td>
+            <td>{{ item.avgclickpos }} </td>
+            <td>{{ item.avgfirstclickpos }} </td>
+            <td>{{ item.avgpageoneclicknum }} </td>
+            <td>{{ item.avgpageoneclickpos }} </td>
+            <td>{{ item.hotkeywordsearchnum }} </td>
+            <td>{{ item.hotclickrate }} </td>
+            <td>{{ item.avgdropdown }} </td>
+            <td>{{ item.noresultrate }} </td>
+          </tr>
+        {% endfor %}
+        </table>
+      </div>
+
       <div class="span8">
-      <p>各个指标的解释</p>
+      <h3>各个指标的解释</h3>
+      <p>点击率 = 有点击的搜索次数 / 总的搜索次数 </p>
+      <p>点击率 = 点击次数 / 有点击的搜索次数 </p>
+      <p>平均点击位置 = 点击位置总和 / 总的点击次数</p>
+      <p>平均点击次数 = 点击次数总和 / 有点击的搜索次数</p>
+      <p>平均首次点击位置 = 首次点击位置总和 / 有点击的搜索次数</p>
     </div>
   </div>
 {% endblock %}
