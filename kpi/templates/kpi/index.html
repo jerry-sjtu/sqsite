@@ -5,7 +5,8 @@
     {% include "kpi/filter.html" %}
   <div class="row">
       <div class="span12">
-        <h3>数据分析结果[按日期]</h3>
+        <a name="table_date"><h3>数据分析结果[按日期]</h3></a> 
+        <a href="#table_total">汇总</a> <a href="#chart">趋势图</a> <a href="#explain">指标定义</a>
         <table class="table table-hover table-striped">
           <tr>
             <th>日期</th>
@@ -24,7 +25,7 @@
           </tr>
         {% for item in overall_result %}
           <tr>
-            <td>{{ item.statdate }} </td>
+            <td>{{ item.statdate|date:"Y-d-M" }} </td>
             <td>{{ item.searchnum }} </td>
             <td>{{ item.clickrate }} </td>
             <td>{{ item.clicknum }} </td>
@@ -43,7 +44,8 @@
       </div>
 
       <div class="span12">
-        <h3>数据分析结果[汇总]</h3>
+        <a name="table_total"><h3>数据分析结果[汇总]</h3>
+        </a> <a href="#table_date">细分</a> <a href="#chart">趋势图</a><a href="#explain">指标定义</a>
         <table class="table table-hover table-striped">
           <tr>
             <th>日期</th>
@@ -62,7 +64,7 @@
           </tr>
         {% for item in total_result %}
           <tr>
-            <td>{{ item.from_date }}-{{ item.to_date }} </td>
+            <td>{{ item.from_date|date:"Y-d-M"  }}-{{ item.to_date|date:"Y-d-M"  }} </td>
             <td>{{ item.searchnum }} </td>
             <td>{{ item.clickrate }} </td>
             <td>{{ item.clicknum }} </td>
@@ -80,8 +82,16 @@
         </table>
       </div>
 
+      <div class="span12">
+        <a name="chart"><h3>各个指标的趋势图</h3></a> 
+        <a href="#table_date">细分</a> <a href="#table_total">汇总</a><a href="#explain">指标定义</a>
+        <div id="search_num_chart"></div>
+        <div id="click_rate_chart"></div>
+      </div>
+
       <div class="span8">
-      <h3>各个指标的解释</h3>
+      <a name="explain"><h3>各个指标的解释</h3></a>
+      <a href="#table_date">细分</a> <a href="#table_total">汇总</a><a href="#chart">图表</a>
       <p>点击率 = 有点击的搜索次数 / 总的搜索次数 </p>
       <p>点击率 = 点击次数 / 有点击的搜索次数 </p>
       <p>平均点击位置 = 点击位置总和 / 总的点击次数</p>

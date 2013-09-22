@@ -50,6 +50,8 @@
 </div>
 <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script>
 <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
+<script src="{{STATIC_URL}}highchart/highcharts.js"></script>
+<script src="{{STATIC_URL}}js/overall_chart.js"></script>
 <script type="text/javascript">
   function load_algo() {
     var business = $("#id_business").val();
@@ -84,6 +86,87 @@
     load_query_category();
   }
 
+  var index = 0
+  var date_list = new Array();
+  {% for item in overall_result %}
+    date_list[index] = '{{ item.statdate|date:"Y-d-M" }}'
+    index += 1
+  {% endfor %}
+
+  index = 0
+  search_num_list = new Array();
+  {% for item in overall_result %}
+    search_num_list[index] = {{ item.searchnum }}
+    index += 1
+  {% endfor %}
+
+  index = 0
+  click_rate_list = new Array();
+  {% for item in overall_result %}
+    click_rate_list[index] = {{ item.clickrate }}
+    index += 1
+  {% endfor %}
+
+
+  function load_search_num_chart() {
+  $('#search_num_chart').highcharts({
+          title: {
+              text: '搜索次数--时间',
+              x: -20 //center
+          },
+          xAxis: {
+              categories: date_list
+          },
+          yAxis: {
+              title: {
+                  text: '搜索次数'
+              },
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+          },
+          series: [{
+              name: '搜索次数',
+              data: search_num_list
+          }]
+      });
+}
+
+function load_click_rate_chart() {
+  $('#click_rate_chart').highcharts({
+          title: {
+              text: '点击率--时间',
+              x: -20 //center
+          },
+          xAxis: {
+              categories: date_list
+          },
+          yAxis: {
+              title: {
+                  text: '点击率'
+              },
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+          },
+          series: [{
+              name: '点击率',
+              data: click_rate_list
+          }]
+      });
+}
+
+function load_chart() {
+  load_search_num_chart();
+  load_click_rate_chart();
+}
+
   $(function() {
     $('#datetimepicker1').datetimepicker({
       language: 'pt-BR',
@@ -98,6 +181,7 @@
     $('#id_business').on("change", load_option);
     $('#id_fromdate').on("change", load_option);
     $('#id_todate').on("change", load_option);
+    load_chart();
   });
 
 </script>
