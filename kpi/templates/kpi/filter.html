@@ -1,9 +1,5 @@
 <div style="border:5px solid #F0F0F0; background-color:#E0E0E0;">
-  {% if form.format == table %}
     <form action="" method="post"> {% csrf_token %}
-  {% elif form.format == chart %}
-    <form action="chart" method="post"> {% csrf_token %}
-  {% endif %}
     <table>
         <tr>
             <td><label for="business">业务</label></td>
@@ -49,6 +45,7 @@
     </form>
 </div>
 <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script>
+<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
 <script src="{{STATIC_URL}}highchart/highcharts.js"></script>
 <script src="{{STATIC_URL}}js/overall_chart.js"></script>
@@ -110,6 +107,9 @@
 
   function load_search_num_chart() {
   $('#search_num_chart').highcharts({
+         credits: {
+          enabled: false
+          },
           title: {
               text: '搜索次数--时间',
               x: -20 //center
@@ -137,6 +137,9 @@
 
 function load_click_rate_chart() {
   $('#click_rate_chart').highcharts({
+         credits: {
+          enabled: false
+          },
           title: {
               text: '点击率--时间',
               x: -20 //center
@@ -167,21 +170,21 @@ function load_chart() {
   load_click_rate_chart();
 }
 
-  $(function() {
-    $('#datetimepicker1').datetimepicker({
-      language: 'pt-BR',
-      pickTime: false,
-    });
-    $('#datetimepicker2').datetimepicker({
-      language: 'en',
-      pickTime: false,
-    });
-    $('#id_fromdate').val('{{form.init_fromdate}}');
-    $('#id_todate').val('{{form.init_todate}}');
-    $('#id_business').on("change", load_option);
-    $('#id_fromdate').on("change", load_option);
-    $('#id_todate').on("change", load_option);
-    load_chart();
+$(function() {
+  $('#datetimepicker1').datetimepicker({
+    language: 'pt-BR',
+    pickTime: false,
   });
+  $('#datetimepicker2').datetimepicker({
+    language: 'en',
+    pickTime: false,
+  });
+  $('#id_fromdate').val('{{form.init_fromdate}}');
+  $('#id_todate').val('{{form.init_todate}}');
+  $('#id_business').on("change", load_option);
+  $('#id_fromdate').on("change", load_option);
+  $('#id_todate').on("change", load_option);
+  load_chart();
+});
 
 </script>

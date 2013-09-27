@@ -22,7 +22,6 @@ def index(request):
             form.init_todate = form.cleaned_data['todate'].strftime('%Y-%m-%d')
     else:
         form = OverallFilterForm()
-    form.fomart = 'table'
     context['form'] = form
     return render(request, 'kpi/index.html', context)
 
@@ -36,17 +35,6 @@ def query_category(request, business, fromdate, todate):
 
 def chart(request):
     context = dict()
-    if request.method == 'POST':
-        form = OverallFilterForm(request.POST)
-        if form.is_valid():
-            result_list = overall_query(form, False)
-            context['overall_result'] = result_list
-            form.init_fromdate = form.cleaned_data['fromdate'].strftime('%Y-%m-%d')
-            form.init_todate = form.cleaned_data['todate'].strftime('%Y-%m-%d')
-    else:
-        form = OverallFilterForm()
-    form.fomart = 'chart'
-    context['form'] = form
     return render(request, 'kpi/chart.html', context)
 
 def overall_query(form, is_single):

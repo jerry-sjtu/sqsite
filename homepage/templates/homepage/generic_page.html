@@ -37,13 +37,13 @@
                 <li class="dropdown">
                 <a href="#kpi" class="dropdown-toggle" data-toggle="dropdown">KPI指标<b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">点击率分析</a></li>
+                    <li><a href="{% url 'kpi:index' %}">点击率分析</a></li>
                     <li><a href="#">热搜词分析</a></li>
                     <li><a href="#">无结果词分析</a></li>
                     <li><a href="#">无点击词分析</a></li>
                   </ul>
                 </li>
-                <li><a href="#about">搜索运营系统</a></li>
+                <li><a href="http://10.1.6.157:8090/op/searchcase/">搜索运营系统</a></li>
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">反作弊<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -70,6 +70,5 @@
           <hr>
           <p>&copy; Company 2013</p>
     </div>
-    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
   </body>
 </html>
