@@ -7,6 +7,7 @@ from hotquery.forms import HotqueryFilterForm
 from django.conf import settings
 from django.db.models import Count, Sum, Avg
 import json
+import datetime
 
 def index(request):
     context = dict()
@@ -15,11 +16,12 @@ def index(request):
         if form.is_valid():
             result_list = keyword_query(form)
             context['keyword_result'] = result_list
-            form.init_fromdate = form.cleaned_data['fromdate'].strftime('%Y-%m-%d')
-            form.init_todate = form.cleaned_data['todate'].strftime('%Y-%m-%d')
-            #form.algo_list = get_algo_version(init_business, init_fromdate, init_todate)
+            business = form.cleaned_data['business']
+            fromdate = form.cleaned_data['fromdate']
+            todate = form.cleaned_data['todate']
+            form = HotqueryFilterForm(request.POST, business=business, fromdate=fromdate, todate=todate)
     else:
-        form = HotqueryFilterForm()
+        form = HotqueryFilterForm(business=1, fromdate=datetime.datetime.now, todate=datetime.datetime.now)
     context['form'] = form
     return render(request, 'hotquery/index.html', context)
 
