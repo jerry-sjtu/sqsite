@@ -91,8 +91,6 @@ class CommonQuey(models.Model):
 
     def get_query_category(self, business, start_date, to_date):
         '''query understanding'''
-        start_date = str_to_date(start_date)
-        to_date = str_to_date(to_date)
         q = SeOverallanalysis.objects.filter(statdate__gte=start_date,statdate__lte=to_date, businesstype=business) \
             .values('keywordcategory').annotate(search_num=Sum('searchnum')).order_by('-search_num')[:20]
         #print q.query
@@ -100,8 +98,6 @@ class CommonQuey(models.Model):
         return [(-1, 'all')] + [(item.mask, item.to_category_str()) for item in re]
 
     def get_query_process(self, business, start_date, to_date):
-        start_date = str_to_date(start_date)
-        to_date = str_to_date(to_date)
         q = SeOverallanalysis.objects.filter(statdate__gte=start_date,statdate__lte=to_date, businesstype=business) \
             .values('searchinfocategory').distinct()
         #print q.query
@@ -117,8 +113,6 @@ class CommonQuey(models.Model):
             return today.strftime('%Y-%m-%d') 
 
     def get_algo_version(self, business, start_date, to_date):
-        start_date = str_to_date(start_date)
-        to_date = str_to_date(to_date)
         q = SeOverallanalysis.objects.filter(statdate__gte=start_date,statdate__lte=to_date, businesstype=business) \
             .values('algoversion').distinct()
         algo_list = [('all', 'all')]

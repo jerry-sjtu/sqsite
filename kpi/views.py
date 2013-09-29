@@ -1,35 +1,43 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
-from kpi.models import CommonQuey, FormatHelper, MathHelper
-from kpi.models import SeOverallanalysis
-from kpi.forms import OverallFilterForm
+from kpi.models import CommonQuey, FormatHelper, MathHelper, str_to_date, SeOverallanalysis
+from kpi.forms import OverallFilterForm, SimpleChoiceFeild
+from django import forms
 from django.conf import settings
 from django.db.models import Count, Sum, Avg
 import json
+import datetime
 
 def index(request):
     context = dict()
     if request.method == 'POST':
         form = OverallFilterForm(request.POST)
-        context['message'] = 'to be checked'
+        request.POST['algo_list'] 
         if form.is_valid():
+            #there wll be cleaned data after validated
             result_list = overall_query(form, False)
             total_list = overall_query(form, True)
+            business = form.cleaned_data['business']
+            fromdate = form.cleaned_data['fromdate']
+            todate = form.cleaned_data['todate']
+            form = OverallFilterForm(request.POST, business=business, fromdate=fromdate, todate=todate)
             context['overall_result'] = result_list
             context['total_result'] = total_list
-            form.init_fromdate = form.cleaned_data['fromdate'].strftime('%Y-%m-%d')
-            form.init_todate = form.cleaned_data['todate'].strftime('%Y-%m-%d')
     else:
-        form = OverallFilterForm()
+        form = OverallFilterForm(business=1, fromdate=datetime.datetime.now, todate=datetime.datetime.now)
     context['form'] = form
     return render(request, 'kpi/index.html', context)
 
 def algo_list(request, business, fromdate, todate):
+    fromdate = str_to_date(fromdate)
+    todate = str_to_date(todate)
     algo_list = CommonQuey().get_algo_version(business, fromdate, todate)
     return HttpResponse(json.dumps(algo_list), content_type="application/json")
 
 def query_category(request, business, fromdate, todate):
+    fromdate = str_to_date(fromdate)
+    todate = str_to_date(todate)
     query_category_list = CommonQuey().get_query_category(business, fromdate, todate)
     return HttpResponse(json.dumps(query_category_list), content_type="application/json")
 

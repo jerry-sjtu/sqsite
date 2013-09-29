@@ -1,5 +1,4 @@
 <div style="border:5px solid #F0F0F0; background-color:#E0E0E0;">
-    {{ form.algo_list.errors }}
     <form action="" method="post"> {% csrf_token %}
     <table>
         <tr>
@@ -19,7 +18,7 @@
             <td><label for="business">结束日期</label></td>
             <td>
                   <div id="datetimepicker2" class="input-append date">
-                    {{form.todate}}
+                   {{form.todate}}
                     <span class="add-on">
                       <i data-time-icon="icon-time" data-date-icon="icon-calendar">
                       </i>
@@ -32,15 +31,7 @@
             <td>{{form.city_list}}</td>
         </tr>
         <tr>
-            <td><label for="business">搜索类型</label></td>
-            <td>{{form.search_type}}</td>
-            <td><label for="business">分类</label></td>
-            <td>{{form.category_list}}</td>
-            <td><label for="business">Query类型</label></td>
-            <td>{{form.query_category}}</td>
-            <td><label for="business">Query处理</label></td>
-            <td>{{form.query_process}}</td>
-            <td></td> <td><button type="submit" class="btn">查询</button></td>
+            <td></td> <td><button type="submit" class="btn">查询</button>
         </tr>
     </table>
     </form>
@@ -49,13 +40,12 @@
 <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
 <script src="{{STATIC_URL}}highchart/highcharts.js"></script>
-<script src="{{STATIC_URL}}js/overall-chart.js"></script>
 <script type="text/javascript">
   function load_algo() {
     var business = $("#id_business").val();
     var fromdate = $("#id_fromdate").val();
     var todate = $("#id_todate").val();
-    var url = "algo_list/" + business + "/" + fromdate + "/" + todate;
+    var url = "{% url 'kpi:index' %}algo_list/" + business + "/" + fromdate + "/" + todate;
     $.get(url, function(data) {
       var options = "";
       for (var i=0; i < data.length; i++) {
@@ -69,7 +59,7 @@
     var business = $("#id_business").val();
     var fromdate = $("#id_fromdate").val();
     var todate = $("#id_todate").val();
-    var url = "query_category/" + business + "/" + fromdate + "/" + todate;
+    var url = "{% url 'kpi:index' %}query_category/" + business + "/" + fromdate + "/" + todate;
     $.get(url, function(data) {
       var options = "";
       for (var i=0; i < data.length; i++) {
@@ -84,34 +74,6 @@
     load_query_category();
   }
 
-  var index = 0
-  var date_list = new Array();
-  {% for item in overall_result %}
-    date_list[index] = '{{ item.statdate|date:"Y-d-M" }}'
-    index += 1
-  {% endfor %}
-
-  index = 0
-  search_num_list = new Array();
-  {% for item in overall_result %}
-    search_num_list[index] = {{ item.searchnum }}
-    index += 1
-  {% endfor %}
-
-  index = 0
-  click_rate_list = new Array();
-  {% for item in overall_result %}
-    click_rate_list[index] = {{ item.clickrate }}
-    index += 1
-  {% endfor %}
-
-
-function load_chart() {
-  if(search_num_list.length > 0){
-    load_search_num_chart();
-    load_click_rate_chart();
-  }
-}
 
 $(function() {
   $('#id_fromdate').attr("data-format","yyyy-MM-dd");
@@ -124,10 +86,10 @@ $(function() {
     language: 'en',
     pickTime: false,
   });
+  load_option();
   $('#id_business').on("change", load_option);
   $('#id_fromdate').on("change", load_option);
   $('#id_todate').on("change", load_option);
-  load_chart();
 });
 
 </script>

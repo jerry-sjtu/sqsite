@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', include('homepage.urls', namespace='homepage')),
     url(r'^kpi/', include('kpi.urls', namespace='kpi')),
+    url(r'^hotquery/', include('hotquery.urls', namespace='hotquery')),
 )

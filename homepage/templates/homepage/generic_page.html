@@ -18,6 +18,8 @@
         padding-left: 5px;  
       }  
       select {width: 120px;}
+      #id_fromdate {width: 120px;}
+      #id_todate {width: 120px;}
     </style>
   </head>
 
@@ -31,16 +33,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">搜索质量</a>
+          <a class="brand" href="{% url 'homepage:index' %}">搜索质量</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
                 <li class="dropdown">
                 <a href="#kpi" class="dropdown-toggle" data-toggle="dropdown">KPI指标<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="{% url 'kpi:index' %}">点击率分析</a></li>
-                    <li><a href="#">热搜词分析</a></li>
-                    <li><a href="#">无结果词分析</a></li>
-                    <li><a href="#">无点击词分析</a></li>
+                    <li><a href="{% url 'hotquery:index' %}">热搜词分析</a></li>
                   </ul>
                 </li>
                 <li><a href="http://10.1.6.157:8090/op/searchcase/">搜索运营系统</a></li>

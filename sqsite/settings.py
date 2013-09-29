@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'homepage',
     'kpi',
+    'hotquery',
 )
 
 # A sample logging configuration. The only tangible logging
