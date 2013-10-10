@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 from kpi.models import CommonQuey, FormatHelper, MathHelper, str_to_date, SeOverallanalysis
 from kpi.forms import OverallFilterForm, SimpleChoiceFeild
 from django import forms
@@ -29,12 +30,14 @@ def index(request):
     context['form'] = form
     return render(request, 'kpi/index.html', context)
 
+@cache_page(60 * 60 * 24)
 def algo_list(request, business, fromdate, todate):
     fromdate = str_to_date(fromdate)
     todate = str_to_date(todate)
     algo_list = CommonQuey().get_algo_version(business, fromdate, todate)
     return HttpResponse(json.dumps(algo_list), content_type="application/json")
 
+@cache_page(60 * 60 * 24)
 def query_category(request, business, fromdate, todate):
     fromdate = str_to_date(fromdate)
     todate = str_to_date(todate)

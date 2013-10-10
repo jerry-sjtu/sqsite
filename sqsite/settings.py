@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'homepage',
     'kpi',
     'hotquery',
+    'cheatquery',
 )
 
 # A sample logging configuration. The only tangible logging

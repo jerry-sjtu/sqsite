@@ -10,6 +10,20 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+class SeCheatkeyword(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='ID') # Field name made lowercase.
+    adddate = models.DateField(db_column='AddDate') # Field name made lowercase.
+    cityid = models.IntegerField(db_column='CityID') # Field name made lowercase.
+    businesstype = models.IntegerField(db_column='BusinessType') # Field name made lowercase.
+    keyword = models.CharField(max_length=50L, db_column='Keyword') # Field name made lowercase.
+    searchnum = models.IntegerField(db_column='SearchNum') # Field name made lowercase.
+    clickedsearchnum = models.IntegerField(db_column='ClickedSearchNum') # Field name made lowercase.
+    crosscitynum = models.IntegerField(db_column='CrossCityNum') # Field name made lowercase.
+    hitnum = models.IntegerField(db_column='HitNum') # Field name made lowercase.
+    ischeat = models.IntegerField(db_column='IsCheat') # Field name made lowercase.
+    class Meta:
+        db_table = 'SE_CheatKeyword'
+
 class SeOverallanalysis(models.Model):
     id = models.IntegerField(db_column='ID') # Field name made lowercase.
     cityid = models.IntegerField(db_column='CityID') # Field name made lowercase.
