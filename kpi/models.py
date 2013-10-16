@@ -91,17 +91,19 @@ class CommonQuey(models.Model):
 
     def get_query_category(self, business, start_date, to_date):
         '''query understanding'''
-        q = SeOverallanalysis.objects.filter(statdate__gte=start_date,statdate__lte=to_date, businesstype=business) \
-            .values('keywordcategory').annotate(search_num=Sum('searchnum')).order_by('-search_num')[:20]
-        #print q.query
-        re =[QueryCategory(item['keywordcategory']) for item in q]
+        #q = SeOverallanalysis.objects.filter(statdate__gte=start_date,statdate__lte=to_date, businesstype=business) \
+        #    .values('keywordcategory').annotate(search_num=Sum('searchnum')).order_by('-search_num')[:20]
+        #re =[QueryCategory(item['keywordcategory']) for item in q]
+        q = [0, 64, 1, 8, 16, 2048, 4, 2, 256, 128, 4096, 4160, 512, 4104, 32, 72, 80, 2049, 4112, 65, 2112, 2052, 257, 2056, 260, 17]
+        re = [QueryCategory(item) for item in q]
         return [(-1, 'all')] + [(item.mask, item.to_category_str()) for item in re]
 
     def get_query_process(self, business, start_date, to_date):
-        q = SeOverallanalysis.objects.filter(statdate__gte=start_date,statdate__lte=to_date, businesstype=business) \
-            .values('searchinfocategory').distinct()
-        #print q.query
-        re = [QueryProcess(item['searchinfocategory']) for item in q]
+        #q = SeOverallanalysis.objects.filter(statdate__gte=start_date,statdate__lte=to_date, businesstype=business) \
+        #    .values('searchinfocategory').distinct()
+        #re = [QueryProcess(item['searchinfocategory']) for item in q]
+        q = [0, 1, 2, 4, 5]
+        re = [QueryProcess(item) for item in q]
         return [(-1, 'all')] + [(item.mask, item.to_category_str()) for item in re]
 
     def parse_stat_time(self, stat_time):
