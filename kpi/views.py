@@ -80,7 +80,9 @@ def overall_query(form, is_single):
         clickpos=Sum('clickpos'), firstclickpos=Sum('firstclickpos'), pageoneclickedsearchnum=Sum('pageoneclickedsearchnum'),
         pageoneclicknum=Sum('pageoneclicknum'), pageoneclickpos=Sum('pageoneclickpos'), hotkeywordsearchnum=Sum('hotkeywordsearchnum'),
         hotkeywordclickedsearchnum=Sum('hotkeywordclickedsearchnum'), dropdownnum=Sum('dropdownnum'),noresultnum=Sum('noresultnum'))
-    #print q.query
+    if is_single == False:
+        q = q.order_by('-statdate',)
+        #print q.query
     q = fill_ratio(q)
     return fill_date_info(q, fromdate, todate)
 
